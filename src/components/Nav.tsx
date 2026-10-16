@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useGame } from "@/lib/store";
 import { TokenBadge } from "./TokenBadge";
 
 const links = [
@@ -15,10 +16,9 @@ function isActive(pathname: string, href: string) {
   return pathname.startsWith(href);
 }
 
-type NavProps = { tokens?: number; username?: string };
-
-export function Nav({ tokens, username }: NavProps) {
+export function Nav() {
   const pathname = usePathname();
+  const game = useGame();
 
   return (
     <header className="border-b border-line bg-bg/90 backdrop-blur">
@@ -47,9 +47,9 @@ export function Nav({ tokens, username }: NavProps) {
           </ul>
         </nav>
         <div className="ml-auto flex items-center gap-3 text-sm">
-          {tokens !== undefined && <TokenBadge amount={tokens} />}
-          {username ? (
-            <span className="font-mono text-muted">@{username}</span>
+          {game && <TokenBadge amount={game.tokens} />}
+          {!game ? null : game.username ? (
+            <span className="font-mono text-muted">@{game.username}</span>
           ) : (
             <Link href="/claim" className="text-observed underline-offset-4 hover:underline">
               Claim name

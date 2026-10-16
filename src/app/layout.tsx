@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { DevClock } from "@/components/DevClock";
+import { GameBoot } from "@/components/GameBoot";
 import { Nav } from "@/components/Nav";
 import "./globals.css";
 
@@ -31,10 +33,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <GameBoot />
         <Nav />
         <main id="main" className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
           {children}
         </main>
+        <DevClock />
       </body>
     </html>
   );
