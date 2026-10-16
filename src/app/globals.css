@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Lab-notebook theme. Contrast checked (WCAG 2.1):
+ * ink 16.3:1, muted 7.9:1, cyan 11.1:1, amber 10.7:1, win 11.5:1, loss 8.4:1 on bg;
+ * every text color is ≥ 6.5:1 on surface-2. Input borders ≥ 3:1 on surface.
+ */
+@theme {
+  --color-bg: #0b0f14;
+  --color-surface: #121923;
+  --color-surface-2: #1a2330;
+  --color-line: #2b3646;
+  --color-line-strong: #5b6b7f;
+  --color-ink: #e8edf2;
+  --color-muted: #9aa8b7;
+  --color-observed: #5fd4ea;
+  --color-on-observed: #04141a;
+  --color-open: #f2b84b;
+  --color-win: #5ee08f;
+  --color-loss: #ff8a80;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-collapse: collapse 600ms ease-out both;
+  @keyframes collapse {
+    0% { opacity: 0; transform: scaleY(0.6); filter: blur(4px); }
+    60% { opacity: 1; filter: blur(0); }
+    100% { transform: scaleY(1); }
   }
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  /* graph paper */
+  background-image:
+    linear-gradient(rgb(95 212 234 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(95 212 234 / 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-observed);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
