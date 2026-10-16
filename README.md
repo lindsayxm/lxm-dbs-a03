@@ -67,7 +67,15 @@ The diagram is also in [`flows.md`](flows.md), along with a table of screens and
 
 ## Onboarding research
 
-_Coming in the next step: how three similar tools welcome someone new, and what we're borrowing._
+We studied how **Manifold Markets**, **Metaculus**, and **ESPN Pick'em/Streak** welcome someone new. All three require an account before your first prediction. We don't: you predict first and claim a name afterward. What we borrowed:
+
+- **The balance is the headline** (Manifold): "You have 100 tokens. What happens next?"
+- **A crowd anchor** (Metaculus): every event shows what the crowd thinks, so your first guess isn't made blind.
+- **Fast first feedback** (a lesson from Metaculus's slow resolutions): some events close within a day, with a "next collapse" countdown.
+- **A "while you were away" report** (Metaculus's resolution email): what resolved, what you won, what you lost.
+- **An honest prize facts strip** (ESPN): free to play, top 3 win cash monthly, you never risk money.
+
+Full notes and sources: [`research.md`](research.md).
 
 ## First-run check
 
