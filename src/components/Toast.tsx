@@ -14,7 +14,7 @@ export function Toast({ message, onDismiss }: { message: string | null; onDismis
   }, [message, onDismiss]);
 
   return (
-    <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center px-4">
+    <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-24 z-50 flex justify-center px-4">
       {message && (
         <div className="pointer-events-auto flex items-center gap-3 rounded-md border border-observed bg-surface-2 px-4 py-3 text-sm shadow-lg">
           <span aria-hidden="true" className="text-observed">
