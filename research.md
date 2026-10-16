@@ -48,8 +48,10 @@ All three put an **account wall before the first prediction**. We don't have acc
 1. **No wall: predict first, name later** (the opposite of all three, closest to ESPN Streak). Land on events with tokens ready. The username is asked for *after* the first prediction, framed as "claim your spot on the leaderboard."
 2. **The balance is the headline** (Manifold). "You have **100 tokens**. What happens next?" sits at the top of the first screen.
 3. **Crowd anchor** (Metaculus). Each event shows a seeded "crowd says" split with a word label ("Crowd: 64% · Likely"), so a newcomer has a reference point and doesn't stare at a blank choice.
-4. **Fast first feedback** (Metaculus's lesson). Some seeded events close within the first day, and the home page shows "Next collapse in 5h 12m", so the first return has results waiting.
+4. **Fast first feedback** (Metaculus's lesson). Some seeded events close within the first day, so the first return has results waiting.
 5. **"While you were away" collapse report** (Metaculus resolution email). `/report` and the home panel show what resolved, won or lost, and the net tokens.
 6. **Honest prize facts strip** (ESPN). A short line on the leaderboard and home page: "Top 3 each month win cash · Free to play · You never risk money · Rules". It also says plainly that prize claims will need verification once accounts launch, since scores stored on one device can't be verified.
 
-**Considered for later:** a Manifold-style *growing* daily bonus (+10, rising to a cap, for consecutive days) instead of a flat +10, and an ESPN-style "Beat the Expert" rival on the leaderboard.
+7. **Growing daily streak bonus** (Manifold). The daily bonus grows with consecutive days: +10, +15, +20, then +25 at most. Missing a day resets it to +10.
+
+**Considered and cut:** a "Next collapse in 5h" countdown (it adds clutter, and fast-closing events are enough). Also an ESPN-style "Beat the Expert" rival, which we may add later.

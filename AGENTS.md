@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # The Observer Effect
 
-A prediction game for MPCS 51238 Assignment 3 (Patterns & Flows). Users wager tokens on the outcomes of events in six categories (Sports, Politics, World, Markets, Culture, Science). A win pays 2× the wager and a loss costs the wager. Users start with 100 tokens and get +10 per day. A monthly leaderboard ranks the most correct predictors.
+A prediction game for MPCS 51238 Assignment 3 (Patterns & Flows). Users wager tokens on the outcomes of events in six categories (Sports, Politics, World, Markets, Culture, Science). A win pays 2× the wager and a loss costs the wager. Users start with 100 tokens. A daily streak bonus pays +10, +15, +20, and then +25 at most for consecutive days, and a missed day resets it to +10. Each event shows a seeded crowd split, and a prize facts strip appears on home and the leaderboard. A monthly leaderboard ranks the most correct predictors.
 
 Main flow: I pick an outcome and wager tokens → it's in my open predictions → I come back tomorrow, my +10 tokens are waiting, and the closed events have collapsed into wins or losses.
 

@@ -2,7 +2,7 @@
 
 *Nothing is decided until you observe it.*
 
-A prediction game: pick what you think will happen in sports, politics, world news, markets, culture, and science, and wager tokens on it. If you're right, you win 2× your wager. If you're wrong, you lose it. You start with 100 tokens and get +10 every day you come back. Each month, the three people who were **most right** win a cash prize. Nobody ever risks their own money; the site is ad-supported.
+A prediction game: pick what you think will happen in sports, politics, world news, markets, culture, and science, and wager tokens on it. If you're right, you win 2× your wager. If you're wrong, you lose it. You start with 100 tokens and get a daily bonus that grows from +10 to +25 the more days in a row you come back. Each month, the three people who were **most right** win a cash prize. Nobody ever risks their own money; the site is ad-supported.
 
 Built for MPCS 51238 *Design, Build, Ship*, Assignment 3: Patterns & Flows.
 
@@ -45,7 +45,7 @@ flowchart TD
     end
 
     subgraph BACK["4 · Coming back: it remembers"]
-        Visit["On load:<br/>+10 tokens per new day<br/>settle events that closed"]
+        Visit["On load:<br/>daily streak bonus<br/>(+10 → +25)<br/>settle events that closed"]
         Report["/report: collapse report<br/>'Welcome back. 2 won, 1 lost.<br/>+20 daily tokens'"]
         Board["/leaderboard<br/>This month's most right<br/>Top 3 win the prize"]
         Visit --> Report --> Board
@@ -71,7 +71,8 @@ We studied how **Manifold Markets**, **Metaculus**, and **ESPN Pick'em/Streak** 
 
 - **The balance is the headline** (Manifold): "You have 100 tokens. What happens next?"
 - **A crowd anchor** (Metaculus): every event shows what the crowd thinks, so your first guess isn't made blind.
-- **Fast first feedback** (a lesson from Metaculus's slow resolutions): some events close within a day, with a "next collapse" countdown.
+- **Fast first feedback** (a lesson from Metaculus's slow resolutions): some events close within a day.
+- **A growing daily streak** (Manifold): +10, +15, +20, up to +25 tokens for coming back on consecutive days.
 - **A "while you were away" report** (Metaculus's resolution email): what resolved, what you won, what you lost.
 - **An honest prize facts strip** (ESPN): free to play, top 3 win cash monthly, you never risk money.
 
