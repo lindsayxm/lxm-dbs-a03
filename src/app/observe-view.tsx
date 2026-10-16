@@ -5,6 +5,7 @@ import { CATEGORIES, type Category } from "@/data/events";
 import { Chip } from "@/components/Chip";
 import { EventCard } from "@/components/EventCard";
 import { PrizeStrip } from "@/components/PrizeStrip";
+import { ReturnPanel } from "@/components/ReturnPanel";
 import { TokenBadge } from "@/components/TokenBadge";
 import { CATEGORY_LABELS, parseCategory } from "@/lib/format";
 import { now, openEvents, predictionFor } from "@/lib/game";
@@ -26,6 +27,7 @@ export function ObserveView() {
 
   return (
     <div className="flex flex-col gap-6">
+      <ReturnPanel game={game} />
       <header className="flex flex-col gap-3">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           You have <TokenBadge amount={game.tokens} unit className="text-observed" />. What happens next?

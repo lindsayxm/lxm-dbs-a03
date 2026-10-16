@@ -196,6 +196,20 @@ function mergeReport(prev: Report | undefined, next: Report): Report {
   return { ...next, bonus: prev.bonus + next.bonus, resolved: [...prev.resolved, ...next.resolved] };
 }
 
+/** Numbers behind the collapse report, shared by /report and the home panel. */
+export function summarizeReport(state: GameState) {
+  const report = state.report;
+  if (!report) return null;
+  const rows = report.resolved.flatMap((id) => {
+    const p = state.predictions.find((x) => x.eventId === id);
+    const e = getInstance(id, state.firstVisitAt);
+    return p?.result && e ? [{ p, e }] : [];
+  });
+  const won = rows.filter((r) => r.p.result!.won).length;
+  const net = report.bonus + rows.reduce((sum, r) => sum + r.p.result!.payout - r.p.wager, 0);
+  return { report, rows, won, lost: rows.length - won, net };
+}
+
 export function markReportSeen(state: GameState): GameState {
   return state.report && !state.report.seen ? { ...state, report: { ...state.report, seen: true } } : state;
 }

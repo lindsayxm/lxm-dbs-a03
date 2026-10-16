@@ -48,12 +48,14 @@ flowchart TD
         Visit["On load:<br/>daily streak bonus<br/>(+10 → +25)<br/>settle events that closed"]
         Report["/report: collapse report<br/>'Welcome back. 2 won, 1 lost.<br/>+20 daily tokens'"]
         Board["/leaderboard<br/>This month's most right<br/>Top 3 win the prize"]
-        Visit --> Report --> Board
+        Panel["/ home: 'Welcome back.<br/>Since you last observed…' panel"]
+        Visit --> Panel -- See your report --> Report --> Board
     end
 
     Saved -- No --> Home
     Saved -- Yes --> Visit
     Visit -- nothing new --> Home
+    Panel --> Home
     Home -- tap an event --> Event
     Check -- Yes --> Preds
     FirstPick -- No --> Home
