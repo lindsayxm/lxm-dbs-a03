@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { DevClock } from "@/components/DevClock";
+import { FlashToast } from "@/components/FlashToast";
 import { GameBoot } from "@/components/GameBoot";
 import { Nav } from "@/components/Nav";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <DevClock />
+        <FlashToast />
       </body>
     </html>
   );

@@ -86,3 +86,24 @@ function subscribe(listener: () => void) {
 export function useGame() {
   return useSyncExternalStore(subscribe, () => cache, () => null);
 }
+
+// ---------- flash message: a toast that survives one client-side navigation ----------
+
+let flash: string | null = null;
+const flashListeners = new Set<() => void>();
+
+export function setFlash(message: string | null) {
+  flash = message;
+  flashListeners.forEach((l) => l());
+}
+
+function subscribeFlash(listener: () => void) {
+  flashListeners.add(listener);
+  return () => {
+    flashListeners.delete(listener);
+  };
+}
+
+export function useFlash() {
+  return useSyncExternalStore(subscribeFlash, () => flash, () => null);
+}
