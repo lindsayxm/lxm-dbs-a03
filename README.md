@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Observer Effect
 
-## Getting Started
+*Nothing is decided until you observe it.*
 
-First, run the development server:
+A prediction game: pick what you think will happen in sports, politics, world news, markets, culture, and science, and wager tokens on it. If you're right, you win 2× your wager. If you're wrong, you lose it. You start with 100 tokens and get +10 every day you come back. Each month, the three people who were **most right** win a cash prize. Nobody ever risks their own money; the site is ad-supported.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Built for MPCS 51238 *Design, Build, Ship*, Assignment 3: Patterns & Flows.
+
+- **Live:** _coming soon (Vercel)_
+- **Stack:** Next.js + Tailwind CSS. Data is saved in your browser (`localStorage`), with no accounts or database.
+
+## Main flow
+
+> I pick an outcome and wager tokens → it's in my open predictions → I come back tomorrow, my +10 tokens are waiting, and the events that closed have *collapsed* into wins or losses.
+
+```mermaid
+flowchart TD
+    Start(["Open the site"]) --> Saved{"Anything saved<br/>on this device?"}
+
+    subgraph FIRST["1 · First visit: useful right away"]
+        Home["/ Observe<br/>'You have 100 tokens.<br/>What happens next?'<br/>+ event list"]
+        Filter["Filter by category<br/>Sports · Politics · World<br/>Markets · Culture · Science"]
+        Home --> Filter --> Home
+    end
+
+    subgraph TASK["2 · Main task: make a prediction"]
+        Event["/events/[id]<br/>Pick an outcome<br/>Enter a wager"]
+        Check{"Valid?"}
+        Err["Error next to the field<br/>· Choose an outcome to predict.<br/>· Enter a whole number of tokens, like 10.<br/>· You have 85 tokens. Wager 85 or less.<br/>(what you typed is kept)"]
+        Closed["'This event has closed.<br/>Pick another one.'"]
+        Event --> Check
+        Check -- No --> Err --> Event
+        Event -. event already closed .-> Closed
+    end
+
+    subgraph LIST["3 · It's on my list"]
+        Preds["/predictions<br/>Open · Resolved<br/>toast: 'Prediction placed'"]
+        FirstPick{"First prediction<br/>and no username?"}
+        Claim["/claim<br/>'Claim your spot on<br/>the leaderboard'"]
+        ClaimCheck{"Valid and<br/>not taken?"}
+        ClaimErr["Error next to the field<br/>· Use 3–20 letters, numbers, or underscores.<br/>· quark_42 is taken by a rival. Try another."]
+        Preds --> FirstPick
+        FirstPick -- Yes --> Claim --> ClaimCheck
+        ClaimCheck -- No --> ClaimErr --> Claim
+    end
+
+    subgraph BACK["4 · Coming back: it remembers"]
+        Visit["On load:<br/>+10 tokens per new day<br/>settle events that closed"]
+        Report["/report: collapse report<br/>'Welcome back. 2 won, 1 lost.<br/>+20 daily tokens'"]
+        Board["/leaderboard<br/>This month's most right<br/>Top 3 win the prize"]
+        Visit --> Report --> Board
+    end
+
+    Saved -- No --> Home
+    Saved -- Yes --> Visit
+    Visit -- nothing new --> Home
+    Home -- tap an event --> Event
+    Check -- Yes --> Preds
+    FirstPick -- No --> Home
+    ClaimCheck -- Yes --> Board
+    Report -- make new predictions --> Home
+    Board --> Home
+    Closed --> Home
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The diagram is also in [`flows.md`](flows.md), along with a table of screens and routes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Onboarding research
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+_Coming in the next step: how three similar tools welcome someone new, and what we're borrowing._
 
-## Learn More
+## First-run check
 
-To learn more about Next.js, take a look at the following resources:
+_Coming after deployment: an agent tries the live site as a brand-new user and gives usability feedback._
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run locally
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm install
+npm run dev
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open http://localhost:3000. To test the "coming back" flow without waiting a day, use **Simulate tomorrow** in the footer.
