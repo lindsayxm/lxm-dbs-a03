@@ -61,7 +61,9 @@ export function Nav() {
         <div className="ml-auto flex items-center gap-3 text-sm">
           {game && <TokenBadge amount={game.tokens} />}
           {!game ? null : game.username ? (
-            <span className="font-mono text-muted">@{game.username}</span>
+            <Link href="/claim" className="font-mono text-muted hover:text-ink" title="Change username">
+              @{game.username}
+            </Link>
           ) : (
             <Link href="/claim" className="text-observed underline-offset-4 hover:underline">
               Claim name
