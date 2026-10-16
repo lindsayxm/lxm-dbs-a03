@@ -80,6 +80,38 @@ We studied how **Manifold Markets**, **Metaculus**, and **ESPN Pick'em/Streak** 
 
 Full notes and sources: [`research.md`](research.md).
 
+## Accessibility
+
+Checked with the agent by driving headless Chrome through every page with the keyboard and reading Chrome's accessibility tree.
+
+**Keyboard**
+- Everything works without a mouse. The first Tab reaches a **Skip to content** link. Filters, cards, radios (arrow keys), the wager field, quick amounts, and submit (Enter) are all reachable in a logical order.
+- Every focusable element shows a visible cyan focus outline (11:1 against the background).
+- After a page change, focus moves to the new page's main content, so keyboard users don't start back in the footer.
+
+**Labels and structure**
+- Every field has a real `<label>`. Outcome radios sit in a `<fieldset>` with a `<legend>`.
+- Errors are linked to their field with `aria-describedby`, the field is marked `aria-invalid`, and focus jumps to the first problem.
+- Each page has one `<h1>` and its own `<title>`. The current nav link has `aria-current="page"`.
+- Filter chips use `aria-pressed`. The leaderboard is a real table with a caption and column headers. Medals are also read as "1st place", "2nd place", and so on.
+- Event cards announce the event title as the link name, with the category, time left, and crowd as the description.
+- Toasts are announced through an `aria-live` region.
+- Won, lost, and open are never shown by color alone. Each has an icon (▲ ▼ ◌) and words.
+- Animations turn off with `prefers-reduced-motion`.
+
+**Text contrast (WCAG 2.1 AA requires 4.5:1 for text, 3:1 for borders and focus)**
+
+| Pair | Ratio |
+|---|---|
+| Body text on background | 16.3:1 |
+| Secondary text on background / cards / table header | 7.9 / 7.3 / 6.5:1 |
+| Secondary text on cyan-tinted highlights (selected radio, return panel, your row) | 5.9–6.7:1 |
+| Cyan, amber, green, red status text on cards | 7.7–10.5:1 |
+| Dark text on cyan buttons (normal / hover) | 10.8 / 8.0:1 |
+| Input and radio borders on cards | 3.2:1 |
+
+The ratios for the translucent highlights were calculated on the blended color, not the base token. At a 390px phone width, no page scrolls sideways.
+
 ## First-run check
 
 _Coming after deployment: an agent tries the live site as a brand-new user and gives usability feedback._

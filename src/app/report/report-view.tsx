@@ -23,7 +23,7 @@ export function ReportView() {
   const summary = summarizeReport(game);
   if (!summary) {
     return (
-      <EmptyState title="Nothing new since you last observed" action={<ButtonLink href="/">Make a prediction</ButtonLink>}>
+      <EmptyState level={1} title="Nothing new since you last observed" action={<ButtonLink href="/">Make a prediction</ButtonLink>}>
         Your streak bonus and results show up here when you come back on a new day.
       </EmptyState>
     );

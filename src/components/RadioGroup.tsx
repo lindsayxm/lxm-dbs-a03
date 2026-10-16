@@ -44,7 +44,7 @@ export function RadioGroup({ legend, name, options, value, onChange, error, disa
                 value={opt.value}
                 checked={checked}
                 onChange={() => onChange(opt.value)}
-                className="size-4 accent-observed focus-visible:outline-none"
+                className="size-4 shrink-0 appearance-none rounded-full border-2 border-line-strong bg-surface checked:border-observed checked:bg-observed checked:shadow-[inset_0_0_0_3px_var(--color-surface)] focus-visible:outline-none"
               />
               <span className="flex-1 font-medium">{opt.label}</span>
               {opt.detail && <span className="text-sm text-muted">{opt.detail}</span>}

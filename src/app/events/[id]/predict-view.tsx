@@ -47,7 +47,7 @@ export function PredictView() {
     return (
       <div className="flex flex-col gap-6">
         {back}
-        <EmptyState title="We couldn't find that event" action={<ButtonLink href="/">See open events</ButtonLink>}>
+        <EmptyState level={1} title="We couldn't find that event" action={<ButtonLink href="/">See open events</ButtonLink>}>
           The link may be mistyped, or the event may no longer exist.
         </EmptyState>
       </div>

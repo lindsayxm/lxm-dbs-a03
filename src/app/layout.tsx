@@ -4,6 +4,8 @@ import { DevClock } from "@/components/DevClock";
 import { FlashToast } from "@/components/FlashToast";
 import { GameBoot } from "@/components/GameBoot";
 import { Nav } from "@/components/Nav";
+import { RouteFocus } from "@/components/RouteFocus";
+import { Suspense } from "react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Observer Effect",
+  title: "The Observer Effect: predict what happens next",
   description: "Predict what happens next. Win tokens. Top 3 each month win cash.",
 };
 
@@ -35,8 +37,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <GameBoot />
+        <Suspense>
+          <RouteFocus />
+        </Suspense>
         <Nav />
-        <main id="main" className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
+        <main id="main" tabIndex={-1} className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 focus:outline-none">
           {children}
         </main>
         <DevClock />

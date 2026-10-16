@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useId } from "react";
 import { outcomeOf, type EventInstance, type Prediction } from "@/lib/game";
 import { CATEGORY_LABELS, timeLeft } from "@/lib/format";
 import { TokenBadge } from "./TokenBadge";
@@ -6,25 +7,32 @@ import { TokenBadge } from "./TokenBadge";
 /** One prediction: open (amber ◌), won (green ▲) or lost (red ▼), always with words. */
 export function PredictionRow({ event, prediction, at }: { event: EventInstance; prediction: Prediction; at: number }) {
   const r = prediction.result;
+  const id = useId();
 
   return (
     <li className={r ? "animate-collapse" : undefined}>
       <Link
         href={`/events/${event.instanceId}`}
+        aria-labelledby={`${id}-title`}
+        aria-describedby={`${id}-pick ${id}-status`}
         className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-4 transition-colors hover:border-observed sm:flex-row sm:items-center sm:justify-between sm:gap-4"
       >
         <div className="flex flex-col gap-1">
           <span className="font-mono text-xs uppercase tracking-wider text-muted">
             {CATEGORY_LABELS[event.category]} · Trial #{event.trial + 1}
           </span>
-          <span className="font-semibold leading-snug">{event.title}</span>
-          <span className="text-sm text-muted">
+          <span id={`${id}-title`} className="font-semibold leading-snug">
+            {event.title}
+          </span>
+          <span id={`${id}-pick`} className="text-sm text-muted">
             You picked <span className="text-ink">{event.options[prediction.choice]}</span> ·{" "}
             <TokenBadge amount={prediction.wager} />
             {r && !r.won && <> · Outcome: {event.options[outcomeOf(event)]}</>}
           </span>
         </div>
-        <Status prediction={prediction} closesIn={timeLeft(event.closesAt - at)} />
+        <span id={`${id}-status`} className="shrink-0">
+          <Status prediction={prediction} closesIn={timeLeft(event.closesAt - at)} />
+        </span>
       </Link>
     </li>
   );
